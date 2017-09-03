@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My Neighborhood Map</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div id="navControls"><a id="navControlsLink" data-bind="event: {mouseover: openNavigation}"></a></div>
+  <div id="sideNav" data-bind="event: {mouseleave: closeNavigation}">
+    <img id="logo" src="img/er_logo_sd.png">
+    <div class="search">
+      <input type="text" id="searchBar" name="searchQuery" placeholder="Location" data-bind="value: userQuery, valueUpdate: 'keyup'">
+      <span class="fa fa-search" data-bind="click: searchForPlaces"></span>
+    </div>
+    <a href="#" class="navButtons">Locations</a>
+    <ul data-bind="foreach: markers">
+      <ul class="locationList">
+        <h3>Name: <span data-bind="text: name"></span></h3>
+        <p>Latitude: <span data-bind="text: lat"></span></p>
+        <p>Longitude: <span data-bind="text: lng"></span></p>
+      </ul>
+    </ul>
+  </div>
+
+  <div id="main">
+    <div id="map"></div>
+  </div>
+
+
+</body>
+
+  <script src="js/knockout.js"></script>
+  <script src="js/anime.min.js"></script>
+  <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCs-Crx7hPswfS-5yRSMJfHLal7Kbm0aHM"></script>
+  <script src="js/gmaps.js"></script>
+
+
+
+</html>

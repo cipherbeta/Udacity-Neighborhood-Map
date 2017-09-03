@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.fa {
+  color: rgba(255,255,255,.8);
+  transition: all .25s;
+}
+
+.fa:hover {
+  color: #3269c1;
+}
+
+/* Make sure map is fullscreen */
+#map {
+  height: 100vh;
+  width: 100vw;
+}
+
+#navControls{
+  z-index: 9998;
+  transition: all 1s ease-in-out;
+}
+
+#navControlsLink {
+  height: 100vh;
+  width: .1em;
+  position: fixed;
+  display: block;
+  margin: 0;
+  padding: 0;
+  background-color: #3269c1;
+  z-index: 9999;
+  cursor:crosshair;
+  transition: all 1s ease-in-out;
+}
+
+#sideNav {
+    height: 100%; /* 100% Full-height */
+    width: 16em; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    margin-left:-24em;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px; /* Place content 60px from the top */\
+    transition: all 1s ease-in-out; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+#sideNav toggled {
+  width: 250px;
+  transition: 1s;
+}
+
+/* The navigation menu links */
+#sideNav a {
+    padding: .1em 1em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: .35em;
+    font-size: .8em;
+    color: #818181;
+    display: block;
+    position: absolute;
+    transition: 0.3s;
+    user-select: none;
+}
+
+/* When you mouse over the navigation links, change their color */
+#sideNav a:hover {
+    color: #f1f1f1;
+    font-size: .85em;
+}
+
+
+#searchBar {
+  width: 12em;
+  margin: 1em auto;
+  padding: .5em;
+  display: block;
+  background-color: rgba(0,0,0,.9);
+  font-size: 1.1em;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: .5em;
+  color: rgba(255,255,255,.75);
+}
+
+text:focus, input:focus {
+  outline: none;
+}
+
+#logo {
+  margin: 0 auto;
+  display: block;
+}
+
+.search {
+  position: relative;
+}
+
+.search .fa-search {
+  position: absolute;
+  top: .8em;
+  right: 1.5em;
+}
+
+.locationList {
+  margin: 4em 0;
+  padding: .25em;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 1em;
+  display: block;
+}
+
+
+#main {
+    transition: margin-left .75s;
+    margin: 0;
+    padding: 0;
+}
