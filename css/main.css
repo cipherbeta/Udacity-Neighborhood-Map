@@ -103,6 +103,14 @@ text:focus, input:focus {
   right: 1.5em;
 }
 
+.locationListMain {
+  margin: 0;
+  padding: 0;
+  width: 16em;
+  display: block;
+  z-index:0;
+}
+
 .locationList {
   width: 16em;
   margin: 0em 0em;
@@ -112,12 +120,13 @@ text:focus, input:focus {
   color: white;
   font-size: 1em;
   display: block;
-  overflow: hidden;
-  transition: 1s;
+  transition: .25s;
+  z-index:9999;
 }
 
-.locationList .active {
-  background-color: red;
+.locationList.active {
+  background-color: black;
+  color: #FF662B;
 }
 
 
@@ -130,6 +139,12 @@ text:focus, input:focus {
   font-size: .5em;
   margin-top: -1.8em;
   letter-spacing: .2em;
+}
+
+.resultOPEN {
+  position: absolute;
+  right: 1em;
+  margin-top: -1em;
 }
 
 #helpButton {

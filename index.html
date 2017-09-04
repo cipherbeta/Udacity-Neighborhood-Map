@@ -14,15 +14,14 @@
     <img id="logo" src="img/er_logo_sd.png">
     <div class="search">
       <input type="text" id="searchBar" name="searchQuery" placeholder="Location" data-bind="value: userQuery, valueUpdate: 'keyup'">
-      <p style="margin-left: 2em; color:white;" data-bind="text:userQuery">
-
-      </p>
       <span class="fa fa-search" data-bind="click: searchForPlaces"></span>
     </div>
-    <h1 data-bind="event: { mouseover: highlightLocation }">Hover over me!</h1>
-    <ul data-bind="foreach: markers, event: { mouseover: highlightLocation }" class="locationList">
+    <ul data-bind="foreach: searchResults" class="locationListMain">
+      <ul class="locationList">
         <h3 class="resultTITLE"> <span data-bind="text: title"></span></h3>
         <p class="resultLATLONG">LAT <span data-bind="text: lat"></span>, LONG <span data-bind="text: lng"></span></p>
+        <span class="fa fa-arrow-circle-right resultOPEN"></span>
+      </ul>
     </ul>
   </div>
   <div id="helpMe">
@@ -41,6 +40,7 @@
   <script src="js/knockout.js"></script>
   <script src="js/anime.min.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCs-Crx7hPswfS-5yRSMJfHLal7Kbm0aHM"></script>
+  <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/gmaps.js"></script>
 
 
