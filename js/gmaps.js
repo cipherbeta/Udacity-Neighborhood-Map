@@ -32,18 +32,25 @@ var navToggle = 1;
 $(document).ready(function() {
   // Bind hover function after document's ready to roll
   $('.locationList').hover(function(){
-    console.log('hovering');
     $(this).addClass('active');
   },function() {
-    console.log('not hovering!');
     $(this).removeClass('active');
+  });
+
+  // Bind animation functions for the information window that pops up on arrow click
+  $('.resultOPEN').on('click', function(){
+    $('#longInfoWindow').css('right','0');
+    viewModel.closeNavigation();
+  });
+  $('#longInfo_goBack').on('click', function() {
+    $('#longInfoWindow').css('right','100%');
   });
 });
 
 viewModel.markers = ko.observableArray([
-  { title: 'Eye On Entrepreneurs', lat: 45.913750, lng: -89.257755, placeID: 'ChIJ9SwINsw3VE0RTDLel7J7Z-U' },
-  { title: 'Trigs of Eagle River', lat: 45.915717, lng: -89.240019, placeID: 'ChIJ-ZZXnek3VE0RBbpY67WJV1Y' },
-  { title: 'Eagle River Airport', lat: 45.934099, lng: -89.261834, placeID: 'ChIJdSZITVA2VE0RDqqRxn-Kjgw' }
+  { title: 'Eye On Entrepreneurs', lat: 45.913750, lng: -89.257755, placeID: 'ChIJ9SwINsw3VE0RTDLel7J7Z-U', content: 'This is the Eye on Entrepreneurs building.' },
+  { title: 'Trigs of Eagle River', lat: 45.915717, lng: -89.240019, placeID: 'ChIJ-ZZXnek3VE0RBbpY67WJV1Y', content: 'This is Trigs of Eagle River. Great food.' },
+  { title: 'Eagle River Airport', lat: 45.934099, lng: -89.261834, placeID: 'ChIJdSZITVA2VE0RDqqRxn-Kjgw', content: 'This is the Eagle River Airport. Visit us for fly-ins!' }
 ]);
 
 viewModel.searchResults = ko.computed(function() {
@@ -72,15 +79,41 @@ function initMap() {
     disableDefaultUI: true
   });
 
-  for (i = 0; i < viewModel.markers().length; i++){
-    var position = new google.maps.LatLng(viewModel.markers()[i].lat, viewModel.markers()[i].lng);
-    marker = new google.maps.Marker({
-      position: position,
-      map: map,
-      animation: google.maps.Animation.DROP,
-      title: viewModel.markers()[i].title
-    });
+
+  
+  initData(map, viewModel.markers());
+
+  function initData(map, markers){
+    var markerData = markers;
+    for (i = 0; i < markerData.length; i++){
+      var position = new google.maps.LatLng(markerData[i].lat, markerData[i].lng);
+      var marker = new google.maps.Marker({
+        map: map,
+        position: position,
+        title: markerData[i].title
+      });
+      var content = markerData[i].content;
+      var infoWindow = new google.maps.InfoWindow();
+      google.maps.event.addListener(marker, 'click', (function(marker, content, infoWindow){
+        return function() {
+          infoWindow.setContent(content);
+          infoWindow.open(map, marker);
+        };
+      })(marker, content, infoWindow));
+    }
   }
+
+
+
+  // for (i = 0; i < viewModel.markers().length; i++){
+  //   var position = new google.maps.LatLng(viewModel.markers()[i].lat, viewModel.markers()[i].lng);
+  //   marker = new google.maps.Marker({
+  //     position: position,
+  //     map: map,
+  //     animation: google.maps.Animation.DROP,
+  //     title: viewModel.markers()[i].title
+  //   });
+  // }
 }
 
 
