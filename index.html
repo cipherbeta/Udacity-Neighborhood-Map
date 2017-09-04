@@ -14,16 +14,21 @@
     <img id="logo" src="img/er_logo_sd.png">
     <div class="search">
       <input type="text" id="searchBar" name="searchQuery" placeholder="Location" data-bind="value: userQuery, valueUpdate: 'keyup'">
+      <p style="margin-left: 2em; color:white;" data-bind="text:userQuery">
+
+      </p>
       <span class="fa fa-search" data-bind="click: searchForPlaces"></span>
     </div>
-    <a href="#" class="navButtons">Locations</a>
-    <ul data-bind="foreach: markers">
-      <ul class="locationList">
-        <h3>Name: <span data-bind="text: name"></span></h3>
-        <p>Latitude: <span data-bind="text: lat"></span></p>
-        <p>Longitude: <span data-bind="text: lng"></span></p>
-      </ul>
+    <h1 data-bind="event: { mouseover: highlightLocation }">Hover over me!</h1>
+    <ul data-bind="foreach: markers, event: { mouseover: highlightLocation }" class="locationList">
+        <h3 class="resultTITLE"> <span data-bind="text: title"></span></h3>
+        <p class="resultLATLONG">LAT <span data-bind="text: lat"></span>, LONG <span data-bind="text: lng"></span></p>
     </ul>
+  </div>
+  <div id="helpMe">
+    <div id="helpButton">
+      <span class="fa fa-question fa-2x"></span>
+    </div>
   </div>
 
   <div id="main">
