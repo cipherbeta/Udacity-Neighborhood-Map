@@ -18,28 +18,64 @@
     </div>
 
     <ul data-bind="foreach: searchResults" class="locationListMain">
-      <ul class="locationList">
+      <ul class="locationList" data-bind="click: $parent.logClick.bind($index)">
         <h3 class="resultTITLE"> <span data-bind="text: title"></span></h3>
         <p class="resultLATLONG">LAT <span data-bind="text: lat"></span>, LONG <span data-bind="text: lng"></span></p>
         <p class="resultCONTACT"></p>
         <span class="fa fa-arrow-circle-right resultOPEN"></span>
       </ul>
     </ul>
+
+    <!-- FOOTER COPY -->
     <h6 id="footercopy">Isaac Doud // <a target="_blank" href="http://goosecap.com">Goose Cap Media</a></a></h6>
     <div id="footersocial">
       <a target="_blank" href="https://twitter.com/TheMyopicNinja"><span class="fa fa-twitter"></span></a>
       <a target="_blank" href="https://www.facebook.com/goosecapmedia/"><span class="fa fa-facebook"></span></a>
     </div>
+
   </div>
+
+  <!-- HELP BUTTON -->
   <div id="helpMe">
     <div id="helpButton">
-      <span class="fa fa-question fa-2x"></span>
+      <span class="fa fa-question fa-lg"></span>
     </div>
+  </div>
+
+  <!-- Floating information window used for HELP -->
+  <div id="longHelpWindow">
+    <div id="longHelp_goBack"><span class="fa fa-arrow-left"></span> Go Back</div>
+    <div class="flex-container">
+      <div class="longHelp_col">
+        <h2>How to use!</h2>
+        <p>
+          Swing your mouse to the left hand side of the screen to open up the sorting menu. From here, you can search to narrow down your results. Click on the result to get some basic information about the spot, or click on the arrow next to the result to get all the available information we have on that spot.
+        </p>
+        <h3>... I don't see my business on here!</h3>
+        <p>
+          We're working on building a comprehensive map for all of our downtown businesses, but it's a bit of an endeavor! We may be getting to your business soon, but as a better part of valor, please drop us a message at 123@fakemail.com and we'll do our best to get your location updated as soon as possible.
+        </p>
+        <h3>Hey, I want to advertise on here!</h3>
+        <p>
+          While we appreciate your interest, we want to keep this as an easy, clean tool for the residents and tourists of Eagle River - and that means reducing bloat as much as possible. This means that if we do advertise anything, it's not going to be super blatant. If you're still okay with that, drop us a line at 123@fakemail.com and we'll see what we can do!
+        </p>
+        <h3>Can I buy you a cuppa?</h3>
+        <p>
+          Hosting costs money! If you love this tool and want to help out with its future development, I'd greatly appreciate any donations. Easiest way to do this is via PayPal - follow <a href="#">this link</a> to donate. Cheers!
+        </p>
+      </div>
+    </div>
+
   </div>
 
   <!-- Floating information window used for detailed info -->
   <div id="longInfoWindow">
     <div id="longInfo_goBack"><span class="fa fa-arrow-left"></span> Go Back</div>
+    <div id="location_mainInfo">
+      <h1 id="location_title">Feature Title</h1>
+      <h2 id="location_address">This is the address.</h2>
+    </div>
+
   </div>
 
   <div id="main">

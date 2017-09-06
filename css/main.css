@@ -3,6 +3,7 @@
 
 * {
   font-family: 'Quicksand', sans-serif;
+
 }
 
 body {
@@ -12,6 +13,19 @@ body {
   padding: 0;
   background-color:rgb(20,20,20);
   overflow: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 /* FONT AWESOME STYLINGS */
@@ -53,7 +67,71 @@ body {
   color: #ff4700;
 }
 
+#location_mainInfo {
+  width: 100%;
+}
 
+#location_title {
+  width: 100%;
+  color: white;
+  margin: 2em .125em 0em;
+  text-align: center;
+}
+
+#location_address {
+  width: 100%;
+  color: rgba(255,255,255,.7);
+  margin: 0em .125em .25em;
+  text-align:center;
+  font-size: .75em;
+  text-transform: uppercase;
+  letter-spacing: .35em;
+}
+
+
+/* LARGE HELP WINDOW STYLINGS */
+#longHelpWindow {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 100%;
+  background-color: rgba(0,0,0,.8);
+  z-index:1;
+  transition: 1s;
+  overflow-x:hidden;
+  overflow-y:scroll;
+}
+
+#longHelp_goBack{
+  position: absolute;
+  height: 1.75em;
+  top: 1em;
+  left: 1em;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: .35em;
+  font-size: .75em;
+  margin-left: 1em;
+  cursor: default;
+  transition: all .25s;
+}
+
+#longHelp_goBack:hover {
+  color: #ff4700;
+}
+
+.longHelp_col {
+  height: 100%;
+  max-width: 36em;
+  margin: 0 auto;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 50%;
+  flex-basis: 400px;
+  padding: 1.5em;
+  color: white;
+}
 
 /* Make sure map is fullscreen */
 #map {
@@ -148,8 +226,8 @@ text:focus, input:focus {
   width: 16em;
   margin: 0em 0em;
   padding: .25em 1em .5em 1em;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
+  border-top: 1px solid rgba(255,255,255,.2);
+  border-bottom: 1px solid rgba(255,255,255,.2);
   color: white;
   font-size: 1em;
   display: block;
@@ -177,14 +255,14 @@ text:focus, input:focus {
 .resultOPEN {
   position: absolute;
   right: 1em;
-  margin-top: -1em;
+  margin-top: -1.5em;
 }
 
 #helpButton {
   background-color:rgba(0,0,0,.5);
-  position: fixed;
-  height: 3em;
-  width: 3em;
+  position: absolute;
+  height: 2em;
+  width: 2em;
   right: .5em;
   top: .5em;
   z-index: 9999;
@@ -195,6 +273,12 @@ text:focus, input:focus {
   justify-content: center;
   margin-top: auto;
   line-height: 2em;
+  transition: 1s;
+}
+
+#helpButton:hover {
+  box-shadow: 0px 0px 2px white;
+  color: #ff4700;
 }
 
 .fa-question {
@@ -230,7 +314,7 @@ text:focus, input:focus {
 }
 
 #footercopy a:hover {
-  color: #ff4700
+  color: #ff4700;
 }
 
 #footersocial {

@@ -24,7 +24,10 @@ var viewModel = {
 
 viewModel.userQuery = ko.observable('');
 
-
+viewModel.logClick = function(clicked){
+  console.log("Attempting to log...");
+  console.log(clicked);
+};
 
 var map;
 var navToggle = 1;
@@ -37,6 +40,17 @@ $(document).ready(function() {
     $(this).removeClass('active');
   });
 
+  // Bind animation functions for the help window that pops up on question click
+  $('#helpButton').on('click', function(){
+    $('#longHelpWindow').css('left','0');
+    $('#helpButton').css('opacity','0');
+    viewModel.closeNavigation();
+  });
+  $('#longHelp_goBack').on('click', function() {
+    $('#longHelpWindow').css('left','100%');
+    $('#helpButton').css('opacity','100');
+  });
+
   // Bind animation functions for the information window that pops up on arrow click
   $('.resultOPEN').on('click', function(){
     $('#longInfoWindow').css('right','0');
@@ -47,17 +61,45 @@ $(document).ready(function() {
   });
 });
 
+// When document updates, some functionality breaks from init. Rebinding
+// UI actions on document changes (i.e., search function) fixes this.
+$(document).change(function(){
+  $('.locationList').hover(function(){
+    $(this).addClass('active');
+  },function() {
+    $(this).removeClass('active');
+  });
+
+  $('#helpButton').on('click', function(){
+    $('#longHelpWindow').css('left','0');
+    $('#helpButton').css('opacity','0');
+    viewModel.closeNavigation();
+  });
+  $('#longHelp_goBack').on('click', function() {
+    $('#longHelpWindow').css('left','100%');
+    $('#helpButton').css('opacity','100');
+  });
+});
+
 viewModel.markers = ko.observableArray([
   { title: 'Eye On Entrepreneurs', lat: 45.913750, lng: -89.257755, placeID: 'ChIJ9SwINsw3VE0RTDLel7J7Z-U', content: 'This is the Eye on Entrepreneurs building.' },
   { title: 'Trigs of Eagle River', lat: 45.915717, lng: -89.240019, placeID: 'ChIJ-ZZXnek3VE0RBbpY67WJV1Y', content: 'This is Trigs of Eagle River. Great food.' },
   { title: 'Eagle River Airport', lat: 45.934099, lng: -89.261834, placeID: 'ChIJdSZITVA2VE0RDqqRxn-Kjgw', content: 'This is the Eagle River Airport. Visit us for fly-ins!' }
 ]);
 
+// viewModel.searchResults = ko.computed(function() {
+//   var q = viewModel.userQuery();
+//   return viewModel.markers().filter(function(i) {
+//     return i.title.toLowerCase().indexOf(q) >= 0;
+//   });
+// });
+
 viewModel.searchResults = ko.computed(function() {
   var q = viewModel.userQuery();
-  return viewModel.markers().filter(function(i) {
+  var search = viewModel.markers().filter(function(i) {
     return i.title.toLowerCase().indexOf(q) >= 0;
   });
+  return search;
 });
 
 // Defines our map style for map generation, courtesy of Snazzy Maps
@@ -80,7 +122,7 @@ function initMap() {
   });
 
 
-  
+
   initData(map, viewModel.markers());
 
   function initData(map, markers){
