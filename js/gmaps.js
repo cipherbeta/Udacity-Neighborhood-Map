@@ -1,6 +1,7 @@
 var viewModel = {
   // Nav open and close via knockoutjs
   // TODO: Enable swipe support down the line
+  self : this,
   openNavigation : function() {
     document.getElementById("sideNav").style.marginLeft = "0";
     document.getElementById("main").style.marginLeft = "16em";
@@ -11,26 +12,26 @@ var viewModel = {
     document.getElementById("main").style.marginLeft = "0";
   },
 
-  // highlightLocation : function(e) {
-  //   console.log("hovering!");
-  //   e.style.backgroundColor = "green";
-  // },
+  infoArray : ko.observable({title:'Data failed to load.',lat:'0',lng:'0',placeID:'None',address:"Address failed to load.",content:"We're sorry, it looks like something failed. Please check your internet connection, then refresh the page. If it's still not working, please drop a note to abc@fakemail.com and let us know what happened. Thanks! :)"}),
 
-  searchForPlaces : function(searchInput) {
-    console.log("Searching for " + userQuery);
-  },
+  userQuery : ko.observable(''),
 
-};
+  toClicked : ko.observable({}),
 
-viewModel.userQuery = ko.observable('');
-
-viewModel.logClick = function(clicked){
-  console.log("Attempting to log...");
-  console.log(clicked);
+  logClick : function(clicked){
+    toClicked = ko.observable({});
+    toClicked().title = clicked.title;
+    toClicked().lat = clicked.lat;
+    toClicked().lng = clicked.lng;
+    toClicked().placeID = clicked.placeID;
+    toClicked().address = clicked.address;
+    toClicked().content = clicked.content;
+    return toClicked();
+  }
 };
 
 var map;
-var navToggle = 1;
+
 
 $(document).ready(function() {
   // Bind hover function after document's ready to roll
@@ -80,6 +81,8 @@ $(document).change(function(){
     $('#helpButton').css('opacity','100');
   });
 });
+
+
 
 viewModel.markers = ko.observableArray([
   { title: 'Eye On Entrepreneurs', lat: 45.913750, lng: -89.257755, placeID: 'ChIJ9SwINsw3VE0RTDLel7J7Z-U', content: 'This is the Eye on Entrepreneurs building.' },

@@ -14,20 +14,20 @@
     <img id="logo" src="img/er_logo_sd.png">
     <div class="search">
       <input type="text" id="searchBar" name="searchQuery" placeholder="Location" data-bind="value: userQuery, valueUpdate: 'keyup'">
-      <span class="fa fa-search" data-bind="click: searchForPlaces"></span>
+      <span class="fa fa-search"></span>
     </div>
 
     <ul data-bind="foreach: searchResults" class="locationListMain">
-      <ul class="locationList" data-bind="click: $parent.logClick.bind($index)">
+      <ul class="locationList" data-bind="click: $parent.logClick.bind($index), clickBubble: false">
         <h3 class="resultTITLE"> <span data-bind="text: title"></span></h3>
         <p class="resultLATLONG">LAT <span data-bind="text: lat"></span>, LONG <span data-bind="text: lng"></span></p>
         <p class="resultCONTACT"></p>
-        <span class="fa fa-arrow-circle-right resultOPEN"></span>
+        <span class="fa fa-arrow-circle-right resultOPEN" data-bind="click: $parent.logClick.bind($index), clickBubble: false"></span>
       </ul>
     </ul>
 
     <!-- FOOTER COPY -->
-    <h6 id="footercopy">Isaac Doud // <a target="_blank" href="http://goosecap.com">Goose Cap Media</a></a></h6>
+    <h6 id="footercopy">Isaac Doud // <a target="_blank" href="http://goosecap.com">Goose Cap Media</a></h6>
     <div id="footersocial">
       <a target="_blank" href="https://twitter.com/TheMyopicNinja"><span class="fa fa-twitter"></span></a>
       <a target="_blank" href="https://www.facebook.com/goosecapmedia/"><span class="fa fa-facebook"></span></a>
@@ -61,7 +61,7 @@
         </p>
         <h3>Can I buy you a cuppa?</h3>
         <p>
-          Hosting costs money! If you love this tool and want to help out with its future development, I'd greatly appreciate any donations. Easiest way to do this is via PayPal - follow <a href="#">this link</a> to donate. Cheers!
+          If you love this tool and want to help out with its future development, I'd greatly appreciate any donations - both in terms of caffeine for my sanity and extra pocket change to help with hosting! Easiest way to do this is via PayPal - follow <a href="#">this link</a> to donate. Cheers!
         </p>
       </div>
     </div>
@@ -72,8 +72,13 @@
   <div id="longInfoWindow">
     <div id="longInfo_goBack"><span class="fa fa-arrow-left"></span> Go Back</div>
     <div id="location_mainInfo">
-      <h1 id="location_title">Feature Title</h1>
-      <h2 id="location_address">This is the address.</h2>
+      <h1 id="location_title" data-bind="text: toClicked().title">Feature Title</h1>
+      <h2 id="location_address" data-bind="text: toClicked().address">This is the address.</h2>
+      <h6 class="location_latlng">LAT: <span data-bind="text: toClicked().lat">LATITUDE</span></h6>
+      <h6 class="location_latlng">LNG: <span data-bind="text: toClicked().lng">LONGITUDE</span></h6>
+      <p id="location_description" data-bind="text: toClicked().content">
+        If you're reading this, something went wrong with the app! Try refreshing the page. If you still see this message, please reach out to us and we'll get things fixed up.
+      </p>
     </div>
 
   </div>

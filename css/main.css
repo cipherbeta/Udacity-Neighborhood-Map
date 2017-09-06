@@ -3,7 +3,6 @@
 
 * {
   font-family: 'Quicksand', sans-serif;
-
 }
 
 body {
@@ -19,6 +18,10 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+hr {
+  width: 75%;
 }
 
 .flex-container {
@@ -88,6 +91,13 @@ body {
   letter-spacing: .35em;
 }
 
+.location_latlng {
+  width: 100%;
+  margin: 0 auto;
+  color: rgba(255,255,255,.5);
+  text-align: center;
+  display: inline-block;
+}
 
 /* LARGE HELP WINDOW STYLINGS */
 #longHelpWindow {
@@ -131,6 +141,14 @@ body {
   flex-basis: 400px;
   padding: 1.5em;
   color: white;
+}
+
+#location_description {
+  max-width: 38em;
+  margin: 0 auto;
+  padding: 1em;
+  color: white;
+  text-align: center;
 }
 
 /* Make sure map is fullscreen */
