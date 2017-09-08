@@ -23,7 +23,7 @@ var viewModel = {
   toClicked : ko.observable({}),
 
   logClick : function(clicked){
-    var toClicked = ko.observable({});
+    toClicked = ko.observable({});
     toClicked().title = clicked.title;
     toClicked().lat = clicked.lat;
     toClicked().lng = clicked.lng;
@@ -86,21 +86,6 @@ $(document).change(function(){
     $('#helpButton').css('opacity','100');
   });
 });
-
-
-//
-// viewModel.markers = ko.observableArray([
-//   { title: 'Eye On Entrepreneurs', lat: 45.913750, lng: -89.257755, placeID: 'ChIJ9SwINsw3VE0RTDLel7J7Z-U', content: 'This is the Eye on Entrepreneurs building.' },
-//   { title: 'Trigs of Eagle River', lat: 45.915717, lng: -89.240019, placeID: 'ChIJ-ZZXnek3VE0RBbpY67WJV1Y', content: 'This is Trigs of Eagle River. Great food.' },
-//   { title: 'Eagle River Airport', lat: 45.934099, lng: -89.261834, placeID: 'ChIJdSZITVA2VE0RDqqRxn-Kjgw', content: 'This is the Eagle River Airport. Visit us for fly-ins!' }
-// ]);
-
-// viewModel.searchResults = ko.computed(function() {
-//   var q = viewModel.userQuery();
-//   return viewModel.markers().filter(function(i) {
-//     return i.title.toLowerCase().indexOf(q) >= 0;
-//   });
-// });
 
 viewModel.searchResults = ko.computed(function() {
   var q = viewModel.userQuery();
