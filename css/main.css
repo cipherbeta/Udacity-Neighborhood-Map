@@ -1,16 +1,16 @@
 /* GENERAL STYLINGS */
-@import url('https://fonts.googleapis.com/css?family=Quicksand');
 
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
 * {
   font-family: 'Quicksand', sans-serif;
 }
 
 body {
-  max-height:100vh;
-  max-width:100vw;
+  max-height: 100vh;
+  max-width: 100vw;
   margin: 0;
   padding: 0;
-  background-color:rgb(20,20,20);
+  background-color: rgb(20, 20, 20);
   overflow: hidden;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -31,9 +31,11 @@ hr {
   width: 100%;
 }
 
+
 /* FONT AWESOME STYLINGS */
+
 .fa {
-  color: rgba(255,255,255,.8);
+  color: rgba(255, 255, 255, .8);
   transition: all .25s;
 }
 
@@ -41,15 +43,17 @@ hr {
   color: #ff4700;
 }
 
+
 /* LARGE INFO WINDOW STYLINGS */
+
 #longInfoWindow {
   width: 100vw;
   height: 100vh;
   position: fixed;
   top: 0;
   right: 100%;
-  background-color: rgba(0,0,0,.8);
-  z-index:1;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 1;
   transition: 1s;
 }
 
@@ -83,9 +87,9 @@ hr {
 
 #location_address {
   width: 100%;
-  color: rgba(255,255,255,.7);
+  color: rgba(255, 255, 255, .7);
   margin: 0em .125em .25em;
-  text-align:center;
+  text-align: center;
   font-size: .75em;
   text-transform: uppercase;
   letter-spacing: .35em;
@@ -94,26 +98,28 @@ hr {
 .location_latlng {
   width: 100%;
   margin: 0 auto;
-  color: rgba(255,255,255,.5);
+  color: rgba(255, 255, 255, .5);
   text-align: center;
   display: inline-block;
 }
 
+
 /* LARGE HELP WINDOW STYLINGS */
+
 #longHelpWindow {
   width: 100vw;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 100%;
-  background-color: rgba(0,0,0,.8);
-  z-index:1;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 1;
   transition: 1s;
-  overflow-x:hidden;
-  overflow-y:scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
-#longHelp_goBack{
+#longHelp_goBack {
   position: absolute;
   height: 1.75em;
   top: 1em;
@@ -151,43 +157,72 @@ hr {
   text-align: center;
 }
 
+
 /* Make sure map is fullscreen */
+
 #map {
   height: 100vh;
   width: 100vw;
 }
 
-#navControls{
+#navControls {
   z-index: 9998;
   transition: all .5;
 }
 
+#tapControls {
+  left: 0em;
+  top: 3em;
+  position: absolute;
+  width: 2em;
+  height: 10em;
+  background-color: rgb(20, 20, 20);
+  border-top-right-radius: 100%;
+  border-bottom-right-radius: 100%;
+  z-index: 1;
+  transition: all .5s;
+}
+
+#tapControls p {
+  transform: rotate(90deg);
+  transform-origin: left top 0;
+  margin-left: 1.75em;
+  margin-top: 4em;
+  color: white;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: .35em;
+  font-size: .8em;
+  line-height: 1em;
+}
+
 #navControlsLink {
   height: 100vh;
+  left: 0;
   width: .1em;
   position: fixed;
   display: block;
   margin: 0;
   padding: 0;
-  background-color:rgb(20,20,20);
+  background-color: rgb(20, 20, 20);
   z-index: 9999;
-  cursor:crosshair;
+  cursor: crosshair;
   transition: all .5s;
 }
 
 #sideNav {
-    height: 100%; /* 100% Full-height */
-    width: 16em; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0;
-    left: 0;
-    margin-left:-24em;
-    background-color:#0A0A0A;
-    box-shadow: 0px 0px 20px rgba(0,0,0,.5);
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding:20px 0px 0px 0px; /* Place content 60px from the top */
-    transition: all .5s; /* 0.5 second transition effect to slide in the sidenav */
+  height: 100%;
+  width: 16em;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  margin-left: -24em;
+  background-color: #0A0A0A;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, .5);
+  overflow-x: hidden;
+  padding: 20px 0px 0px 0px;
+  transition: all .5s;
 }
 
 #sideNav toggled {
@@ -195,22 +230,21 @@ hr {
   transition: .5s;
 }
 
-
 #searchBar {
   width: 12em;
   margin: 1em auto;
   padding: .5em;
   display: block;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   font-size: 1.1em;
-  border: 1px solid rgba(255,255,255,.8);
+  border: 1px solid rgba(255, 255, 255, .8);
   border-radius: .5em;
-  color: rgba(255,255,255,.9);
+  color: rgba(255, 255, 255, .9);
   transition: all .25s;
 }
 
 #searchBar:focus {
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, .5);
 }
 
 text:focus, input:focus {
@@ -237,27 +271,26 @@ text:focus, input:focus {
   padding: 0;
   width: 16em;
   display: block;
-  z-index:0;
+  z-index: 0;
 }
 
 .locationList {
   width: 16em;
   margin: 0em 0em;
   padding: .25em 1em .5em 1em;
-  border-top: 1px solid rgba(255,255,255,.2);
-  border-bottom: 1px solid rgba(255,255,255,.2);
+  border-top: 1px solid rgba(255, 255, 255, .2);
+  border-bottom: 1px solid rgba(255, 255, 255, .2);
   color: white;
   font-size: 1em;
   display: block;
   transition: .25s;
-  z-index:9999;
+  z-index: 9999;
 }
 
 .locationList.active {
   background-color: black;
   color: #FF662B;
 }
-
 
 .resultTITLE {
   font-size: 1em;
@@ -277,7 +310,7 @@ text:focus, input:focus {
 }
 
 #helpButton {
-  background-color:rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, .5);
   position: absolute;
   height: 2em;
   width: 2em;
@@ -306,10 +339,11 @@ text:focus, input:focus {
 }
 
 #main {
-    transition: margin-left .75s;
-    margin: 0;
-    padding: 0;
+  transition: margin-left .75s;
+  margin: 0;
+  padding: 0;
 }
+
 
 /* FOOTER STYLINGS */
 
