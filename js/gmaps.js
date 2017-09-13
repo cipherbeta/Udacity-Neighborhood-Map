@@ -70,12 +70,13 @@ var viewModel = {
   // }
 
   logClick : function(clicked){
-    viewModel.toClicked().title = clicked.title;
-    viewModel.toClicked().lat = clicked.location.lat;
-    viewModel.toClicked().lng = clicked.location.lng;
-    viewModel.toClicked().placeID = clicked.placeID;
-    viewModel.toClicked().address = clicked.address;
-    viewModel.toClicked().content = clicked.content;
+    // viewModel.toClicked().title = clicked.title;
+    // viewModel.toClicked().lat = clicked.lat;
+    // viewModel.toClicked().lng = clicked.lng;
+    // viewModel.toClicked().placeID = clicked.placeID;
+    // viewModel.toClicked().address = clicked.address;
+    // viewModel.toClicked().content = clicked.content;
+    viewModel.toClicked(clicked);
     console.log(viewModel.toClicked());
     return viewModel.toClicked();
   },
@@ -140,9 +141,9 @@ $(document).change(function(){
   });
 });
 
-viewModel.searchResults = ko.computed(function() {
+viewModel.searchResults = ko.pureComputed(function() {
   var q = viewModel.userQuery();
-  var search = viewModel.markers().filter(function(i) {
+  var search = viewModel.gMarkers().filter(function(i) {
     return i.title.toLowerCase().indexOf(q) >= 0;
   });
   return search;
@@ -196,7 +197,11 @@ function initMap() {
       var marker = new google.maps.Marker({
         map: map,
         position: position,
-        title: markerData[i].title
+        title: markerData[i].title,
+        lat: markerData[i].location.lat,
+        lng: markerData[i].location.lng,
+        placeID: markerData[i].placeID,
+        content: markerData[i].content
       });
       var content = markerData[i].content;
       var infoWindow = new google.maps.InfoWindow();
@@ -210,18 +215,6 @@ function initMap() {
       console.log(viewModel.gMarkers());
     }
   }
-
-
-
-  // for (i = 0; i < viewModel.markers().length; i++){
-  //   var position = new google.maps.LatLng(viewModel.markers()[i].lat, viewModel.markers()[i].lng);
-  //   marker = new google.maps.Marker({
-  //     position: position,
-  //     map: map,
-  //     animation: google.maps.Animation.DROP,
-  //     title: viewModel.markers()[i].title
-  //   });
-  // }
 }
 
 
