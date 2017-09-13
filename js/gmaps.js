@@ -57,27 +57,12 @@ var viewModel = {
 
   toClicked : ko.observable({}),
 
-  // logClick : function(clicked){
-  //   toClicked = ko.observable({});
-  //   toClicked().title = clicked.title;
-  //   toClicked().lat = clicked.lat;
-  //   toClicked().lng = clicked.lng;
-  //   toClicked().placeID = clicked.placeID;
-  //   toClicked().address = clicked.address;
-  //   toClicked().content = clicked.content;
-  //   console.log(toClicked());
-  //   return toClicked();
-  // }
-
   logClick : function(clicked){
-    // viewModel.toClicked().title = clicked.title;
-    // viewModel.toClicked().lat = clicked.lat;
-    // viewModel.toClicked().lng = clicked.lng;
-    // viewModel.toClicked().placeID = clicked.placeID;
-    // viewModel.toClicked().address = clicked.address;
-    // viewModel.toClicked().content = clicked.content;
     viewModel.toClicked(clicked);
     console.log(viewModel.toClicked());
+    map.setCenter(clicked.getPosition());
+    map.setZoom(16);
+    viewModel.toClicked().setAnimation(google.maps.Animation.DROP);
     return viewModel.toClicked();
   },
 
@@ -144,7 +129,8 @@ $(document).change(function(){
 viewModel.searchResults = ko.pureComputed(function() {
   var q = viewModel.userQuery();
   var search = viewModel.gMarkers().filter(function(i) {
-    return i.title.toLowerCase().indexOf(q) >= 0;
+    var x = i.title.toLowerCase().indexOf(q) >= 0;
+    return x;
   });
   return search;
 });
@@ -170,6 +156,7 @@ viewModel.searchResults = ko.pureComputed(function() {
 // Defines our map style for map generation, courtesy of Snazzy Maps
 // var mapStyle = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"administrative.locality","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.neighborhood","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.neighborhood","elementType":"labels.text.fill","stylers":[{"lightness":"17"}]},{"featureType":"administrative.land_parcel","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"landscape","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"landscape.man_made","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#ff4700"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"invert_lightness":true},{"visibility":"off"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry.fill","stylers":[{"color":"#3b3b3b"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ff4700"},{"lightness":"39"},{"gamma":"0.43"},{"saturation":"-47"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#555555"}]},{"featureType":"road.local","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}];
 
+// Animates our question button via animejs
 var bouncingBall = anime({
   targets: '#helpButton',
   rotate: '1turn',
@@ -178,6 +165,7 @@ var bouncingBall = anime({
   autoplay: true
 });
 
+// Initialize our map
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 45.917034, lng: -89.248168},
@@ -186,24 +174,26 @@ function initMap() {
     disableDefaultUI: true
   });
 
-
-
   initData(map, viewModel.markers());
 
   function initData(map, markers){
     var markerData = markers;
     for (i = 0; i < markerData.length; i++){
       var position = new google.maps.LatLng(markerData[i].location.lat, markerData[i].location.lng);
+      var title = markerData[i].title;
+      var lat = markerData[i].location.lat;
+      var lng = markerData[i].location.lng;
+      var placeID = markerData[i].placeID;
+      var content = markerData[i].content;
       var marker = new google.maps.Marker({
         map: map,
         position: position,
-        title: markerData[i].title,
-        lat: markerData[i].location.lat,
-        lng: markerData[i].location.lng,
-        placeID: markerData[i].placeID,
-        content: markerData[i].content
+        title: title,
+        lat: lat,
+        lng: lng,
+        placeID: placeID,
+        content: content
       });
-      var content = markerData[i].content;
       var infoWindow = new google.maps.InfoWindow();
       google.maps.event.addListener(marker, 'click', (function(marker, content, infoWindow){
         return function() {
@@ -217,7 +207,8 @@ function initMap() {
   }
 }
 
-
-
+// Call our map to get things started with the appropriate markers.
 initMap();
+
+// Bind our viewmodel
 ko.applyBindings(viewModel);
