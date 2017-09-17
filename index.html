@@ -49,6 +49,7 @@
     <div id="longHelp_goBack"><span class="fa fa-arrow-left"></span> Go Back</div>
     <div class="flex-container">
       <div class="longHelp_col">
+        <h2>REMEMBER! Update your scroll bar so we've got a smoother lookin' thing.</h2>
         <h2>How to use!</h2>
         <p>
           Swing your mouse to the left hand side of the screen to open up the sorting menu. From here, you can search to narrow down your results. Click on the result to get some basic information about the spot, or click on the arrow next to the result to get all the available information we have on that spot.
@@ -75,10 +76,9 @@
     <div id="longInfo_goBack"><span class="fa fa-arrow-left"></span> Go Back</div>
     <div id="location_mainInfo">
       <h1 id="location_title" data-bind="text: toClicked().title">Feature Title</h1>
+      <hr>
       <h2 id="location_address" data-bind="text: toClicked().address">This is the address.</h2>
-      
-      <h6 class="location_latlng">LAT: <span data-bind="text: toClicked().lat">LATITUDE</span></h6>
-      <h6 class="location_latlng">LNG: <span data-bind="text: toClicked().lng">LONGITUDE</span></h6>
+      <h6 class="location_latlng">LAT: <span data-bind="text: toClicked().lat">LATITUDE</span> LNG: <span data-bind="text: toClicked().lng">LONGITUDE</span></h6>
       <p id="location_description" data-bind="text: toClicked().content">
         If you're reading this, something went wrong with the app! Try refreshing the page. If you still see this message, please reach out to us and we'll get things fixed up.
       </p>

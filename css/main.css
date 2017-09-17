@@ -5,6 +5,7 @@
   font-family: 'Quicksand', sans-serif;
 }
 
+
 body {
   max-height: 100vh;
   max-width: 100vw;
@@ -21,7 +22,7 @@ body {
 }
 
 hr {
-  width: 75%;
+  width: 40%;
 }
 
 .flex-container {
@@ -88,19 +89,27 @@ hr {
 #location_address {
   width: 100%;
   color: rgba(255, 255, 255, .7);
-  margin: 0em .125em .25em;
+  margin: 0 .125em -.5em;
+  padding: .25em;
   text-align: center;
-  font-size: .75em;
+  font-size: calc(.5em + .75vw);
   text-transform: uppercase;
-  letter-spacing: .35em;
+  letter-spacing: .15em;
 }
 
 .location_latlng {
   width: 100%;
-  margin: 0 auto;
-  color: rgba(255, 255, 255, .5);
+  margin-top: -6em;
+  margin-bottom: 0;
+
+  color: rgba(255, 255, 255, .8);
+  font-size: calc(.5em + .5vw);
   text-align: center;
   display: inline-block;
+  letter-spacing: .15em;
+}
+
+#location_description {
 }
 
 
