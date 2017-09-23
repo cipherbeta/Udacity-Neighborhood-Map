@@ -44,6 +44,32 @@ hr {
   color: #ff4700;
 }
 
+/* INFO WINDOW STYLINGS */
+#iwLearnMore {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size:.9em;
+  text-align: center;
+  padding: .25em;
+}
+
+#iwLearnMoreBox {
+  margin-top: .25em;
+  margin-bottom: .25em;
+  border: 1px solid black;
+  transition: all .25s;
+}
+
+#iwLearnMoreBox:hover {
+  background-color: black;
+  color: white;
+}
+
+#iwLearnMoreBox a {
+  height: 100%;
+  width: 100%;
+}
+
 
 /* LARGE INFO WINDOW STYLINGS */
 
@@ -190,6 +216,8 @@ hr {
   border-bottom-right-radius: 100%;
   z-index: 1;
   transition: all .5s;
+  cursor: pointer;
+  cursor: hand;
 }
 
 #tapControls p {
@@ -304,12 +332,17 @@ text:focus, input:focus {
 .resultTITLE {
   font-size: 1em;
   letter-spacing: .15em;
+  line-height:.9em;
+  margin-right: 1em;
+  text-align:center;
 }
 
 .resultLATLONG {
   font-size: .6em;
-  margin-top: -1.8em;
+  margin-top: -1.4em;
   letter-spacing: .2em;
+  margin-right: 1em;
+  text-align:center;
 }
 
 .resultOPEN {

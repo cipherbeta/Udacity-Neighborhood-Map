@@ -14,6 +14,34 @@ var viewModel = {
   // Define self for clarity down the line
   self : this,
 
+  markers : ko.observableArray([
+    {
+      title: 'Eye On Entrepreneurs',
+      location: { lat: 45.913750,
+                  lng: -89.257755,
+                  address: '348 West Pine St., Eagle River, WI' },
+      placeID: 'ChIJ9SwINsw3VE0RTDLel7J7Z-U',
+      content: 'This is the Eye on Entrepreneurs building - a space where many budding entrepreneurs have found their home! From the web developers at Goose Cap Media, the professional seamstress in StitchIt, the insane artistic work of Mugsy Depuyt, and the professional artist and signmaker at The Blank Canvas, this is a creative hub that is sure to pique your interest.',
+      yelpID: ''
+    },
+    {
+      title: 'Trigs of Eagle River',
+      location: { lat: 45.915717,
+                  lng: -89.240019,
+                  address: '925 E Wall St, Eagle River, WI' },
+      placeID: 'ChIJ-ZZXnek3VE0RBbpY67WJV1Y',
+      content: 'This is Trigs of Eagle River. The "grocery store" for Eagle River, one can find a multitude of local cooking, including the renowned "world\'s best brats"! (They actually won the competition!) Trig\'s is a fundraising hub, and charity hub, and all around just a decent grocery store in the heart of Eagle River. But damn, that\'s a good brat.',
+      yelpId: 'trigs-food-and-drug-eagle-river-3'
+    },
+    {
+      title: 'Riverstone Restaurant and Tavern',
+      location: { lat: 45.918378,
+                  lng: -89.252927,
+                  address: '219 N Railroad St, Eagle River, WI' },
+      placeID: 'ChIJfcY38sg3VE0RWKNqVFR5EuQ',
+      content: 'This is the Eagle River Airport. Often a stopping point for the smaller recreational aircraft, it\'s also a stopping point for jumpers going to the larger Rhinelander airport. The yearly fly-in is a popular event, boasting several particularly awesome things such as professional model aircraft stunts, home-made aircraft, and occasionally the F-16C flyover from a nearby AFB.' }
+  ]),
+
   // Define whether the menu is open as an observable, as we'll use this to track state in some circumstances down the line.
   menuIsOpen : ko.observable(false),
 
@@ -49,31 +77,7 @@ var viewModel = {
   },
 
   // Define our object array that the map's going to use for markers.
-  markers : ko.observableArray([
-    {
-      title: 'Eye On Entrepreneurs',
-      location: { lat: 45.913750,
-                  lng: -89.257755,
-                  address: '348 West Pine St., Eagle River, WI' },
-      placeID: 'ChIJ9SwINsw3VE0RTDLel7J7Z-U',
-      content: 'This is the Eye on Entrepreneurs building - a space where many budding entrepreneurs have found their home! From the web developers at Goose Cap Media, the professional seamstress in StitchIt, the insane artistic work of Mugsy Depuyt, and the professional artist and signmaker at The Blank Canvas, this is a creative hub that is sure to pique your interest.'
-    },
-    {
-      title: 'Trigs of Eagle River',
-      location: { lat: 45.915717,
-                  lng: -89.240019,
-                  address: '925 E Wall St, Eagle River, WI' },
-      placeID: 'ChIJ-ZZXnek3VE0RBbpY67WJV1Y',
-      content: 'This is Trigs of Eagle River. The "grocery store" for Eagle River, one can find a multitude of local cooking, including the renowned "world\'s best brats"! (They actually won the competition!) Trig\'s is a fundraising hub, and charity hub, and all around just a decent grocery store in the heart of Eagle River. But damn, that\'s a good brat.'
-    },
-    {
-      title: 'Eagle River Airport',
-      location: { lat: 45.934099,
-                  lng: -89.261834,
-                  address: '1311 Airport Rd, Eagle River, WI' },
-      placeID: 'ChIJdSZITVA2VE0RDqqRxn-Kjgw',
-      content: 'This is the Eagle River Airport. Often a stopping point for the smaller recreational aircraft, it\'s also a stopping point for jumpers going to the larger Rhinelander airport. The yearly fly-in is a popular event, boasting several particularly awesome things such as professional model aircraft stunts, home-made aircraft, and occasionally the F-16C flyover from a nearby AFB.' }
-  ]),
+
 
   // Defines the array we're going to store google maps markers in.
   gMarkers : ko.observableArray([]),
@@ -86,10 +90,16 @@ var viewModel = {
 
   // Logs what we click on and defines it @ toClicked(), also centers map and animates on this particular item.
   logClick : function(clicked){
+    // set what we clicked on to our observable
     viewModel.toClicked(clicked);
-    console.log(viewModel.toClicked());
+    console.log(clicked);
+    // center the map at clicked location
     map.setCenter(clicked.getPosition());
+    // zoom in for address clarity
     map.setZoom(16);
+    // open up our info window relative to what we clicked
+    google.maps.event.trigger(clicked, 'click');
+    // animation drop
     viewModel.toClicked().setAnimation(google.maps.Animation.DROP);
     return viewModel.toClicked();
   },
@@ -110,10 +120,10 @@ var viewModel = {
     } else {
       for (i = 0; i < search.length; i++) {
         // if we do have a query result, set that map marker visible.
-        map.bounds.extend(search[i].getPosition());
         search[i].setMap(map);
       }
     }
+
     return search;
   })
 };
@@ -235,12 +245,9 @@ function initMap() {
 
   initData(map, viewModel.markers());
 
-  // initialize our infowindow as we only want one open on the map at any time
+  // initialize our infowindow outside of marker generation
+  // as we only want one open on the map at any time
   var infoWindow = new google.maps.InfoWindow();
-
-
-
-
 
   function initData(map, markers){
     var markerData = markers;
@@ -265,8 +272,9 @@ function initMap() {
       });
 
       google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent('Marker position: ' + this.getPosition());
+        infoWindow.setContent(this.title + "<br>" + this.address);
         infoWindow.open(map, this);
+        map.setCenter(this);
       });
 
       // Push our new marker to our google Markers array.
@@ -291,7 +299,7 @@ var setMapOnAll = function(map) {
   }
 };
 
-// Call our map to get things started with the appropriate markers.
+// Call our map to get things started.
 initMap();
 
 // Bind our viewmodel
