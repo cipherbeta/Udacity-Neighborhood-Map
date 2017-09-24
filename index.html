@@ -16,24 +16,30 @@
   <div id="sideNav" data-bind="event: {mouseleave: closeNavigation}">
     <img id="logo" src="img/er_logo_sd.png">
     <div class="search">
-      <input type="text" id="searchBar" name="searchQuery" placeholder="Location" data-bind="value: userQuery, valueUpdate: 'keyup'">
+      <input type="text" id="searchBar" name="searchQuery" placeholder="Search Location" data-bind="value: userQuery, valueUpdate: 'keyup'">
       <span class="fa fa-search"></span>
     </div>
-
-    <ul data-bind="foreach: searchResults" class="locationListMain">
-      <ul class="locationList" data-bind="click: $parent.logClick.bind($index), clickBubble: false">
-        <h3 class="resultTITLE"> <span data-bind="text: title"></span></h3>
-        <p class="resultLATLONG">LAT <span data-bind="text: lat"></span>, LONG <span data-bind="text: lng"></span></p>
-        <span class="fa fa-arrow-circle-right resultOPEN" data-bind="click: $parent.logClick.bind($index), clickBubble: false"></span>
+    <div class="sideNavLocationList">
+      <ul data-bind="foreach: searchResults" class="locationListMain">
+        <ul class="locationList" data-bind="click: $parent.logClick.bind($index), clickBubble: false">
+          <h3 class="resultTITLE"> <span data-bind="text: title"></span></h3>
+          <p class="resultLATLONG"><span data-bind="text: address"></span></p>
+          <!-- <span class="fa fa-arrow-circle-right resultOPEN" data-bind="click: $parent.logClick.bind($index), clickBubble: false"></span>
+          We may use this when things are refined for production. Opens full data view. -->
+        </ul>
       </ul>
-    </ul>
+    </div>
+
 
     <!-- FOOTER COPY -->
-    <h6 id="footercopy">Isaac Doud // <a target="_blank" href="http://goosecap.com">Goose Cap Media</a></h6>
-    <div id="footersocial">
-      <a target="_blank" href="https://twitter.com/TheMyopicNinja"><span class="fa fa-twitter"></span></a>
-      <a target="_blank" href="https://www.facebook.com/goosecapmedia/"><span class="fa fa-facebook"></span></a>
+    <div id="footer">
+      <h6 id="footercopy">Isaac Doud // <a target="_blank" href="http://goosecap.com">Goose Cap Media</a></h6>
+      <div id="footersocial">
+        <a target="_blank" href="https://twitter.com/TheMyopicNinja"><span class="fa fa-twitter"></span></a>
+        <a target="_blank" href="https://www.facebook.com/goosecapmedia/"><span class="fa fa-facebook"></span></a>
+      </div>
     </div>
+
 
   </div>
 
