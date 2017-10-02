@@ -15,26 +15,26 @@ var viewModel = {
   self: this,
 
   markers: ko.observableArray([{
-      title: 'Eye On Entrepreneurs',
+      title: 'White Spruce Inn',
       location: {
-        lat: 45.913750,
-        lng: -89.257755,
-        address: '348 West Pine St., Eagle River, WI'
+        lat: 45.920036,
+        lng: -89.253894,
+        address: '419 N. Railroad St, Eagle River, WI'
       },
-      placeID: 'ChIJ9SwINsw3VE0RTDLel7J7Z-U',
-      content: 'This is the Eye on Entrepreneurs building - a space where many budding entrepreneurs have found their home! From the web developers at Goose Cap Media, the professional seamstress in StitchIt, the insane artistic work of Mugsy Depuyt, and the professional artist and signmaker at The Blank Canvas, this is a creative hub that is sure to pique your interest.',
-      yelpID: ''
+      placeID: 'ChIJvyJyzMk3VE0RyBj7sxv6nuI',
+      content: 'Whether you just want to stop by for a few appetizers amongst friends, grab a quick lunch with a co-worker, or enjoy a full meal with family, Eddie B’s White Spruce Restaurant & Tavern will deliver excellent food and drink to you every time.',
+      zomatoID: '17690788'
     },
     {
-      title: 'Trigs of Eagle River',
+      title: 'Alexander\'s Family Pizza',
       location: {
-        lat: 45.915717,
-        lng: -89.240019,
-        address: '925 E Wall St, Eagle River, WI'
+        lat: 45.914910,
+        lng: -89.251605,
+        address: '211 S Railroad St, Eagle River, WI'
       },
-      placeID: 'ChIJ-ZZXnek3VE0RBbpY67WJV1Y',
-      content: 'This is Trigs of Eagle River. The "grocery store" for Eagle River, one can find a multitude of local cooking, including the renowned "world\'s best brats"! (They actually won the competition!) Trig\'s is a fundraising hub, and charity hub, and all around just a decent grocery store in the heart of Eagle River. But damn, that\'s a good brat.',
-      yelpID: 'trigs-food-and-drug-eagle-river-3'
+      placeID: 'ChIJmyJp8sg3VE0RsckvMA8qkho',
+      content: 'The classic family-oriented arcade and pizza joint. Come on by for arcade games, shooting some pool, or just hanging out!',
+      zomatoID: '17686025'
     },
     {
       title: 'Riverstone Restaurant and Tavern',
@@ -45,7 +45,7 @@ var viewModel = {
       },
       placeID: 'ChIJfcY38sg3VE0RWKNqVFR5EuQ',
       content: 'Welcome to Riverstone Restaurant & Tavern! Come as you are and enjoy anything from fresh made artisan hearth breads to from-scratch pizza to wild alaskan salmon! Ron and Cindy Meinholz, Owners South of the bridge, in historic downtown Eagle River, and... Home of Riverstone Catering!',
-      yelpID: 'riverstone-restaurant-and-tavern-eagle-river'
+      zomatoID: '17686059'
     }
   ]),
 
@@ -146,6 +146,11 @@ var viewModel = {
 //
 
 $(document).ready(function() {
+  console.log("Ready!");
+
+  $('#loaderDiv').css('opacity', '0');
+  $('#loaderDiv').remove();
+
   // Bind hover function after document's ready to roll
   $('.locationList').hover(function() {
     $(this).addClass('active');
@@ -229,6 +234,30 @@ var bouncingBall = anime({
   autoplay: true
 });
 
+// zomatoID
+var zomatoGetData = function(input){
+  var zomID = input.zomatoID;
+  var result = $.ajax({
+    url: 'https://developers.zomato.com/api/v2.1/restaurant?res_id=' + zomID,
+    headers: { 'user-key' : '69acf94ce65eed4a327ab2a853610996' },
+    success: function(result) {
+      return result;
+    },
+    error: function (thrownError){
+      alert("Looks like we're having some trouble chatting with Zomato. If this persists, please let us know the error shown below and I'll see what I can do. Thanks!" + thrownError);
+    }
+
+  });
+  console.log("Zomato Data Updated");
+  return result;
+};
+
+var validateUndefined = function(input){
+  if (input !== undefined) {
+    return input;
+  }
+};
+
 //                          _
 //                         | |
 //   __ _  ___   ___   __ _| | ___   _ __ ___   __ _ _ __  ___
@@ -247,19 +276,19 @@ var mapStyle = [{
   "featureType": "all",
   "elementType": "labels.text",
   "stylers": [{
-    "visibility": "on"
+    "visibility": "off"
   }]
 }, {
   "featureType": "all",
   "elementType": "labels.icon",
   "stylers": [{
-    "visibility": "on"
+    "visibility": "off"
   }]
 }, {
   "featureType": "administrative.locality",
   "elementType": "labels",
   "stylers": [{
-    "visibility": "on"
+    "visibility": "off"
   }]
 }, {
   "featureType": "administrative.neighborhood",
@@ -285,13 +314,13 @@ var mapStyle = [{
   "featureType": "poi",
   "elementType": "all",
   "stylers": [{
-    "visibility": "on"
+    "visibility": "off"
   }]
 }, {
   "featureType": "poi",
   "elementType": "labels",
   "stylers": [{
-    "visibility": "on"
+    "visibility": "off"
   }, {
     "saturation": "-65"
   }, {
@@ -465,7 +494,10 @@ function initMap() {
       var lng = m.location.lng;
       var address = m.location.address;
       var placeID = m.placeID;
+      var directions = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(address) + '&destination_place_id=' + placeID;
       var content = m.content;
+      var zomatoID = m.zomatoID;
+      var zomatoInfo = zomatoGetData(m);
       var marker = new google.maps.Marker({
         map: map,
         position: position,
@@ -473,12 +505,17 @@ function initMap() {
         lat: lat,
         lng: lng,
         address: address,
+        directions: directions,
         placeID: placeID,
+        zomatoID: zomatoID,
+        zomatoInfo: zomatoInfo,
         content: content
       });
 
+
+
       google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent(this.title + '<br>' + this.address + '<br><a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(this.address) + '&destination_place_id=' + this.placeID + '">Get Directions</a> (opens in new tab)');
+        infoWindow.setContent(this.title + '<br>' + this.address + '<br><a target="_blank" href="' + this.directions + '">Get Directions</a><br><span id="infoWindowButton" class="resultOPEN" data-bind="click: $parent.logClick.bind($index)">Learn More</span>');
         infoWindow.open(map, this);
         map.setCenter(this);
       });

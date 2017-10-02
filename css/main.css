@@ -43,6 +43,38 @@ hr {
   color: #ff4700;
 }
 
+#loaderDiv {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  display: table;
+  top: 0;
+  left: 0;
+  background-color: rgb(10,10,10);
+  z-index: 10000000;
+  align-content: middle;
+  vertical-align: middle;
+  text-align: center;
+  margin: 0 auto;
+  color: white;
+  white-space: nowrap;
+}
+
+#loaderImages {
+  text-align: center;
+  height: 100vh;
+  width: 100vw;
+  display: table-cell;
+  vertical-align: middle;
+  align-content: middle;
+  max-width: 10vw;
+}
+
+#loaderImages img {
+  height: 33px;
+  margin: -.5em .5em;
+}
+
 
 /* INFO WINDOW STYLINGS */
 
@@ -77,10 +109,10 @@ hr {
 #longInfoWindow {
   width: 100vw;
   height: 100vh;
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 100%;
-  background-color: rgba(0, 0, 0, .8);
+  background-color: rgba(0, 0, 0, .95);
   z-index: 1;
   transition: 1s;
 }
@@ -104,19 +136,22 @@ hr {
 
 #location_mainInfo {
   width: 100%;
+  text-align: center;
+  align-content: center;
 }
 
 #location_title {
   width: 100%;
   color: #fff;
-  margin: 2em .125em 0em;
+  margin: 2em .125em .25em;
   text-align: center;
+  line-height: .85em;
 }
 
 #location_address {
   width: 100%;
   color: rgba(255, 255, 255, .7);
-  margin: 0 .125em -.5em;
+  margin: -.5em 0 .5em;
   padding: .25em;
   text-align: center;
   font-size: calc(.5em + .75vw);
@@ -124,16 +159,30 @@ hr {
   letter-spacing: .15em;
 }
 
-.location_latlng {
-  width: 100%;
-  margin-top: -6em;
-  margin-bottom: 0;
-  color: rgba(255, 255, 255, .8);
-  font-size: calc(.5em + .5vw);
+#location_directions {
+  color: rgba(0, 0, 0, 1);
+  text-decoration: none;
+  border-radius: .75em;
   text-align: center;
-  display: inline-block;
-  letter-spacing: .15em;
+  font-size: calc(.6em + .75vw);
+  width: 100%;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  padding: .5em 1em;
+  background-color: rgba(255,255,255,.75);
+  margin: 2em auto;
+  text-transform: uppercase;
 }
+
+#location_description {
+  max-width: 38em;
+  margin: 0 auto;
+  padding: 1em;
+  color: #fff;
+  text-align: center;
+}
+
 
 /* FULLSCREEN HELP WINDOW STYLINGS */
 
@@ -178,14 +227,6 @@ hr {
   flex-basis: 400px;
   padding: 1.5em;
   color: #fff;
-}
-
-#location_description {
-  max-width: 38em;
-  margin: 0 auto;
-  padding: 1em;
-  color: #fff;
-  text-align: center;
 }
 
 
@@ -304,7 +345,7 @@ text:focus, input:focus {
 }
 
 .sideNavLocationList {
-  background-color: rgba(0,0,0,.2);
+  background-color: rgba(0, 0, 0, .2);
   box-shadow: 0px 0px 20px black;
 }
 
@@ -398,11 +439,15 @@ text:focus, input:focus {
 #footer {
   width: 100%;
   height: 6em;
-  background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 59%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 59%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 59%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
-  position:absolute;
+  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 59%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 59%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 59%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000', GradientType=0);
+  /* IE6-9 */
+  position: absolute;
   display: block;
   bottom: 0;
 }
@@ -417,7 +462,6 @@ text:focus, input:focus {
   text-align: center;
   letter-spacing: .35em;
   color: #fff;
-
 }
 
 #footercopy a {

@@ -9,6 +9,18 @@
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+  <div id="loaderDiv">
+    <div id="loaderImages">
+      <h1>Loading...</h1>
+      <p>
+        Powered By
+      </p>
+      <img src="img/logo_google.png">
+      <img src="img/logo_zomato.png">
+    </div>
+  </div>
+
+
   <div id="tapControls" data-bind="event: {click: openNavigation}"><p>
     Search <span class="fa-li fa fa-search"></span>
   </p></div>
@@ -24,8 +36,7 @@
         <ul class="locationList" data-bind="click: $parent.logClick.bind($index), clickBubble: false">
           <h3 class="resultTITLE"> <span data-bind="text: title"></span></h3>
           <p class="resultLATLONG"><span data-bind="text: address"></span></p>
-          <!-- <span class="fa fa-arrow-circle-right resultOPEN" data-bind="click: $parent.logClick.bind($index), clickBubble: false"></span>
-          We may use this when things are refined for production. Opens full data view. -->
+          <span class="fa fa-arrow-circle-right resultOPEN" data-bind="click: $parent.logClick.bind($index), clickBubble: false"></span>
         </ul>
       </ul>
     </div>
@@ -33,11 +44,7 @@
 
     <!-- FOOTER COPY -->
     <div id="footer">
-      <h6 id="footercopy">Isaac Doud // <a target="_blank" href="http://goosecap.com">Goose Cap Media</a></h6>
-      <div id="footersocial">
-        <a target="_blank" href="https://twitter.com/TheMyopicNinja"><span class="fa fa-twitter"></span></a>
-        <a target="_blank" href="https://www.facebook.com/goosecapmedia/"><span class="fa fa-facebook"></span></a>
-      </div>
+      <h6 id="footercopy">Developed by Isaac Doud
     </div>
 
 
@@ -84,9 +91,15 @@
       <h1 id="location_title" data-bind="text: toClicked().title">Feature Title</h1>
       <hr>
       <h2 id="location_address" data-bind="text: toClicked().address">This is the address.</h2>
-      <h6 class="location_latlng">LAT: <span data-bind="text: toClicked().lat">LATITUDE</span> LNG: <span data-bind="text: toClicked().lng">LONGITUDE</span></h6>
+      <a id="location_directions" target="_blank" data-bind="attr: { href: toClicked().directions }">Get Directions</a>
+      <hr>
+      <!-- ko if: toClicked().zomatoInfo.responseJSON.user_rating.rating_text -->
+      <p id="location_description">
+        The food and atmosphere is... <span data-bind="text: toClicked().zomatoInfo.responseJSON.user_rating.rating_text"></span>.
+      </p>
+      <!-- /ko -->
       <p id="location_description" data-bind="text: toClicked().content">
-        If you're reading this, something went wrong with the app! Try refreshing the page. If you still see this message, please reach out to us and we'll get things fixed up.
+        If you're reading this, something went wrong with the app! Try refreshing the page or check your internet connection. If you still see this message, please reach out to us and we'll get things fixed up.
       </p>
     </div>
 
