@@ -115,6 +115,7 @@ hr {
   background-color: rgba(0, 0, 0, .95);
   z-index: 1;
   transition: 1s;
+  overflow-y: scroll;
 }
 
 #longInfo_goBack {
@@ -183,6 +184,17 @@ hr {
   text-align: center;
 }
 
+#apiCredit {
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: .35em;
+  margin-bottom: .25em;
+}
+
+#imgAPI {
+  margin-bottom: 2em;
+}
+
 
 /* FULLSCREEN HELP WINDOW STYLINGS */
 
@@ -221,10 +233,6 @@ hr {
   height: 100%;
   max-width: 36em;
   margin: 0 auto;
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 50%;
-  flex-basis: 400px;
   padding: 1.5em;
   color: #fff;
 }
@@ -347,6 +355,8 @@ text:focus, input:focus {
 .sideNavLocationList {
   background-color: rgba(0, 0, 0, .2);
   box-shadow: 0px 0px 20px black;
+  overflow-x: hidden;
+  margin-bottom:2em;
 }
 
 .locationListMain {

@@ -46,6 +46,28 @@ var viewModel = {
       placeID: 'ChIJfcY38sg3VE0RWKNqVFR5EuQ',
       content: 'Welcome to Riverstone Restaurant & Tavern! Come as you are and enjoy anything from fresh made artisan hearth breads to from-scratch pizza to wild alaskan salmon! Ron and Cindy Meinholz, Owners South of the bridge, in historic downtown Eagle River, and... Home of Riverstone Catering!',
       zomatoID: '17686059'
+    },
+    {
+      title: 'Butch\'s Pizza',
+      location: {
+        lat: 45.915167,
+        lng: -89.249773,
+        address: '220 E Wall St, Eagle River, WI'
+      },
+      placeID: 'ChIJ225_Uc83VE0R7b8Bb1g4o1U',
+      content: 'Butch\'s is the finest pizzeria in the Northwoods of Wisconsin. We are proud to offer our famous thin crust and hand tossed pizza, entirely homemade, prepared in small batches from the finest ingredients. Our dough and sauce are secret recipes, developed over 40 years ago and mixed from scratch daily with only the finest ingredients. So you choose yur favorite toppings and we will prepare your pie to order, never skimping on toppings and finishing it off with 100% mozzarella cheese. Butch\'s pizza never uses fillers in the cheese, sauce or dough, so enjoy a truly homemade pizza and taste the difference.',
+      zomatoID: '17686031'
+    },
+    {
+      title: 'Soda Pops Restaurant',
+      location: {
+        lat: 45.915735,
+        lng: -89.251947,
+        address: '125 S Railroad St, Eagle River, WI'
+      },
+      placeID: 'ChIJTV1AVM83VE0RAPYSiLK2AD4',
+      content: 'Welcome to Riverstone Restaurant & Tavern! Come as you are and enjoy anything from fresh made artisan hearth breads to from-scratch pizza to wild alaskan salmon! Ron and Cindy Meinholz, Owners South of the bridge, in historic downtown Eagle River, and... Home of Riverstone Catering!',
+      zomatoID: '17686062'
     }
   ]),
 
@@ -59,7 +81,6 @@ var viewModel = {
     // $('#main').css('marginLeft','16em');
     $('#tapControls').css('marginLeft', '16em');
     viewModel.menuIsOpen(true);
-    console.log("Menu opened, menuIsOpen set to true.");
   },
 
   closeNavigation: function() {
@@ -68,7 +89,6 @@ var viewModel = {
     // $('#main').css('marginLeft','0');
     $('#tapControls').css('marginLeft', '0');
     viewModel.menuIsOpen(false);
-    console.log("Menu is closed, menuIsOpen set to false.");
   },
 
   // Shifts our nav controls over just a skosh to avoid mouseover with any other menus open.
@@ -487,7 +507,9 @@ function initMap() {
   function initData(map, markers) {
     var markerData = markers;
     for (i = 0; i < markerData.length; i++) {
+      // Grab marker data so we only have to call it once
       var m = markerData[i];
+      // Define everything
       var position = new google.maps.LatLng(m.location.lat, m.location.lng);
       var title = m.title;
       var lat = m.location.lat;
@@ -498,6 +520,7 @@ function initMap() {
       var content = m.content;
       var zomatoID = m.zomatoID;
       var zomatoInfo = zomatoGetData(m);
+      // Push all this info to the google maps marker
       var marker = new google.maps.Marker({
         map: map,
         position: position,
@@ -511,8 +534,6 @@ function initMap() {
         zomatoInfo: zomatoInfo,
         content: content
       });
-
-
 
       google.maps.event.addListener(marker, 'click', function() {
         infoWindow.setContent(this.title + '<br>' + this.address + '<br><a target="_blank" href="' + this.directions + '">Get Directions</a><br><span id="infoWindowButton" class="resultOPEN" data-bind="click: $parent.logClick.bind($index)">Learn More</span>');
