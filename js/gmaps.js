@@ -254,6 +254,17 @@ var bouncingBall = anime({
   autoplay: true
 });
 
+// TODO: In the future, have all anims played through animejs
+
+
+// ______                     _
+// |___  /                    | |
+//   / / ___  _ __ ___   __ _| |_ ___
+//  / / / _ \| '_ ` _ \ / _` | __/ _ \
+// / /_| (_) | | | | | | (_| | || (_) |
+// /_____\___/|_| |_| |_|\__,_|\__\___/
+//
+
 // zomatoID
 var zomatoGetData = function(input){
   var zomID = input.zomatoID;
@@ -288,10 +299,12 @@ var validateUndefined = function(input){
 //  |___/             |___/                         |_|
 //
 
+// Define our map to call it later
 var map;
 
 var mapsAPIkey = 'AIzaSyCs-Crx7hPswfS-5yRSMJfHLal7Kbm0aHM';
 
+// Map styling courtesy of Snazzy Maps
 var mapStyle = [{
   "featureType": "all",
   "elementType": "labels.text",
