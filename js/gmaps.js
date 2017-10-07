@@ -536,7 +536,7 @@ function initMap() {
       });
 
       google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent(this.title + '<br>' + this.address + '<br><a target="_blank" href="' + this.directions + '">Get Directions</a><br><span id="infoWindowButton" class="resultOPEN" data-bind="click: $parent.logClick.bind($index)">Learn More</span>');
+        infoWindow.setContent(this.title + '<br>' + this.address + '<br><a target="_blank" href="' + this.directions + '">Get Directions</a>');
         infoWindow.open(map, this);
         map.setCenter(this);
       });
