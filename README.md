@@ -5,9 +5,7 @@ This application is designed to easily allow the user to search for available lo
 #### // HOW TO USE
 Clone the repository or download the .zip file provided via the link above. Extract the files to the directory of your choice and open index.html in your web browser. You can also upload all necessary files (index.html, css/js/img folders) to a web server and access it at that location.
 
-To view/sort locations on the map, click the 'search' button on the left hand side or swipe your mouse to the left side of the map. From here, you can click on a particular location to move the map to that location, or you can type into the search box to narrow down the locations. Clicking on a particular location will move to that location on the map and open up a Google Maps infoWindow with the address and directions link.
-
-Clicking on the arrow next to a particular location in the list on the side will open slide in an infowindow that shows some basic review/food information provided by Zomato.
+To view/sort locations on the map, click the 'search' button on the left hand side or swipe your mouse to the left side of the map. From here, you can click on a particular location to move the map to that location, or you can type into the search box to narrow down the locations. Clicking on a particular location will move to that location on the map and open up a Google Maps infoWindow with the address and directions link, as well as a rating out of 5 and a short description of what food is offered.
 
 #### // HOW TO EDIT
 Map markers are defined via a knockoutJS observableArray, defined at the top of the file inside the viewmodel. Each entry in viewModel.markers() should include the following information:
