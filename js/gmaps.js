@@ -74,6 +74,15 @@ var viewModel = {
   // Define whether the menu is open as an observable, as we'll use this to track state in some circumstances down the line.
   menuIsOpen: ko.observable(false),
 
+  // Logic for mobile/touch devices for the search tab
+  autoNavigation: function() {
+    if (viewModel.menuIsOpen() === false) {
+      viewModel.openNavigation();
+    } else {
+      viewModel.closeNavigation();
+    }
+  },
+
   // Call to open up the navigation window.
   openNavigation: function() {
     $('#sideNav').css('marginLeft', '0');
@@ -110,7 +119,7 @@ var viewModel = {
   gMarkers: ko.observableArray([]),
 
   // Creates an observable that we watch to run our sorting system.
-  userQuery: ko.observable(''),
+  userQuery: ko.observable(),
 
   // Creates an object based on what's clicked on our search menu.
   toClicked: ko.observable({}),
@@ -133,6 +142,7 @@ var viewModel = {
 
   // Watches our search bar, and sorts results and markers based on input.
   searchResults: ko.pureComputed(function() {
+    var e = viewModel.gMarkers();
     var q = viewModel.userQuery();
     // Filters our gMarkers array and returns only what matches the query
     var search = viewModel.gMarkers().filter(function(i) {
@@ -253,6 +263,19 @@ var bouncingBall = anime({
   direction: 'alternate',
   autoplay: true
 });
+
+function toggleBounce() {
+  // iterate through to make sure all anims have stopped
+  for (var i = 0; i < viewModel.gMarkers().length; i++){
+    viewModel.gMarkers()[i].setAnimation(null);
+  }
+  // make sure it's stopped if we reclick, otherwise set anim to bounce
+    if (this.getAnimation() !== null) {
+      this.setAnimation(null);
+    } else {
+      this.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
 
 // TODO: In the future, have all anims played through animejs
 
@@ -547,6 +570,9 @@ function initMap() {
         zomatoInfo: zomatoInfo,
         content: content
       });
+
+      // adds anim on click
+      marker.addListener('click', toggleBounce);
       // adds data for info window to marker
       makeInfoWindow(marker);
       // Push our new marker to our google Markers array.
@@ -556,13 +582,11 @@ function initMap() {
     // generates data for infoWindow based on marker data
     function makeInfoWindow(marker) {
       google.maps.event.addListener(marker, 'click', function() {
-      infoWindow.setContent(this.title + '<br>' + this.address + '<br><a target="_blank" href="' + this.directions + '">Get Directions</a>');
-      infoWindow.open(map, this);  // Not sure where map is coming from
+      infoWindow.setContent(this.title + '<br>' + this.address + '<br><a target="_blank" href="' + this.directions + '">Get Directions</a><!-- ko if: toClicked().zomatoInfo.responseJSON.user_rating.rating_text --><br>Rated ' + this.zomatoInfo.responseJSON.user_rating.aggregate_rating + ' out of 5.<br>Serves: ' + this.zomatoInfo.responseJSON.cuisines + '.<!-- /ko -->');
+      infoWindow.open(map, this);
       map.setCenter(this);
       });
     }
-
-
   }
 
   // Initialize bounds that we can redefine as markers are sorted.
@@ -574,6 +598,9 @@ function initMap() {
   }
   // Initially fit bounds for our viewsize.
   map.fitBounds(bounds);
+
+  // helper to inform knockout that our markers have been updated
+  viewModel.userQuery('');
 }
 
 var setMapOnAll = function(map) {
@@ -582,8 +609,11 @@ var setMapOnAll = function(map) {
   }
 };
 
-// Call our map to get things started.
-initMap();
+// Alerts the user if we can't get to Google Maps.
+var mapHasErrors = function() {
+  alert("Looks like we're having some trouble getting to Google Maps. Given the nature of this application, that's, uh.... A problem. Try checking your internet connection and/or firewall/parental blocks. If this still persists, let us know and we'll check it out.");
+};
 
+ko.options.deferUpdates = true;
 // Bind our viewmodel
 ko.applyBindings(viewModel);
