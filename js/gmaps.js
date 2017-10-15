@@ -511,11 +511,11 @@ function initMap() {
     disableDefaultUI: true
   });
 
-  initData(map, viewModel.markers());
-
   // initialize our infowindow outside of marker generation
   // as we only want one open on the map at any time
   var infoWindow = new google.maps.InfoWindow();
+
+  initData(map, viewModel.markers());
 
   function initData(map, markers) {
     var markerData = markers;
@@ -547,16 +547,22 @@ function initMap() {
         zomatoInfo: zomatoInfo,
         content: content
       });
-
-      google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent(this.title + '<br>' + this.address + '<br><a target="_blank" href="' + this.directions + '">Get Directions</a>');
-        infoWindow.open(map, this);
-        map.setCenter(this);
-      });
-
+      // adds data for info window to marker
+      makeInfoWindow(marker);
       // Push our new marker to our google Markers array.
       viewModel.gMarkers().push(marker);
     }
+
+    // generates data for infoWindow based on marker data
+    function makeInfoWindow(marker) {
+      google.maps.event.addListener(marker, 'click', function() {
+      infoWindow.setContent(this.title + '<br>' + this.address + '<br><a target="_blank" href="' + this.directions + '">Get Directions</a>');
+      infoWindow.open(map, this);  // Not sure where map is coming from
+      map.setCenter(this);
+      });
+    }
+
+
   }
 
   // Initialize bounds that we can redefine as markers are sorted.
